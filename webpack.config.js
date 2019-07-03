@@ -17,12 +17,13 @@ module.exports = {
   plugins: [
     new UglifyJsPlugin({ sourceMap: true }),
     new CleanWebpackPlugin(['dist']),
+    new Dotenv(),
     new HtmlWebpackPlugin({
       title: 'euler-multiples',
       template: './src/index.html',
       inject: 'body'
-    }),
-    new Dotenv()
+    })
+
   ],
   module: {
     rules: [

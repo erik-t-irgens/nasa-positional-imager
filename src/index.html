@@ -2,10 +2,34 @@
 <html>
   <head>
 
-    <title></title>
+    <title>Positional Imager</title>
   </head>
   <body>
+    <div class="container">
+      <div class="card" id="displayCard">
+        <div class="row" id="imageRow">
+          <!-- Imaging displayer -->
+        </div>
 
+        <div class="row" id="inputRow">
+          <div class="form-group">
+          <!-- Form input -->
+            <form id="userInputForm" action="index.html" method="post">
+              <input type="date" name="dateForm" id="userDate">
+              <input type="number" name="longitude" min="-180" max="180" id="userLong">
+              <input type="number" name="latitude" min="-90" max="90" id="userLat">
+              <label class="checkbox-inline">
+  <input type="checkbox" checked data-toggle="toggle"> First
+</label>
+              <!-- <input type="slider" name="resolution"> -->
+
+
+              <button class="btn btn-outline-success" type="submit" name="button" id="submitFormButton">Search!</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
   </body>
 </html>
