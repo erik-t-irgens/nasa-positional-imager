@@ -16,19 +16,24 @@ $(document).ready(function() {
     let cloud_score = false;
     // placeholder date
     let date = "2014-02-01";
+    let resolution = 0.8816 - parseFloat($("#resolutionRange").val());
     $.ajax({
-      url: `https://api.nasa.gov/planetary/earth/imagery/?lon=${long}&lat=${lat}&date=2014-02-01&cloud_score=${cloud_score}&api_key=${process.env.API_KEY}`,
+      url: `https://api.nasa.gov/planetary/earth/imagery/?lon=${long}&lat=${lat}&date=2014-02-01&cloud_score=${cloud_score}&api_key=${process.env.API_KEY}&dim=${resolution}`,
       type: 'GET',
-      data: {
-        format: 'json'
-      },
+      // data: {
+      //   format: 'json'
+      // },
       success: function(response) {
-        $("#imageRow").html("<img" + "src ='" + `${response.url}` + "' alt='Image of the area at " + `${long}` + " longitude and " + `${lat}` + " latitude' </img>");
+        $("#imageRow").html("<img src='" + `${response.url}` +"'</img>");
+        console.log(response.url);
+        console.log(response);
+        console.log(response.toString());
         console.log("Success");
       },
       error: function() {
         $("#imageRow").html("<h1>There was an error processing your request. Please try a new location or date.</h1>");
         console.log("Error!");
+        console.log(`${resolution}`);
       }
     });
 

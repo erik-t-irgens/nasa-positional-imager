@@ -6,27 +6,41 @@
   </head>
   <body>
     <div class="container">
-      <div class="card" id="displayCard">
+      <div class="card bg-dark" id="displayCard">
         <div class="row" id="imageRow">
           <!-- Imaging displayer -->
         </div>
 
         <div class="row" id="inputRow">
-          <div class="form-group">
+        
           <!-- Form input -->
             <form id="userInputForm" action="index.html" method="post">
-              <input type="date" name="dateForm" id="userDate">
-              <input type="number" name="longitude" min="-180" max="180" id="userLong">
-              <input type="number" name="latitude" min="-90" max="90" id="userLat">
+              <input type="date" name="dateForm" id="userDate"><hr>
+              <label for="longitude">Longitude
+                <input type="number" name="longitude" min="-180" max="180" step="0.001" id="userLong">
+              </label>
+              <hr>
+              <label for="latitude">Latitude
+                <input type="number" name="latitude" min="-90" max="90" step="0.001" id="userLat">
+              </label>
+              <hr>
               <label class="checkbox-inline">
-  <input type="checkbox" checked data-toggle="toggle"> First
-</label>
+                <input type="checkbox" checked data-toggle="toggle"> Cloud Coverage Calculator
+              </label>
+              <hr>
+              <div class="col-sm-6">
+                <p>Zoom out</p>
+              </div>
+              <div class="col-sm-6">
+                <p>Zoom in</p>
+              </div>
+              <input type="range" class="custom-range" min="0" max="0.87" step=".0001" id="resolutionRange">
               <!-- <input type="slider" name="resolution"> -->
 
 
               <button class="btn btn-outline-success" type="submit" name="button" id="submitFormButton">Search!</button>
             </form>
-          </div>
+
         </div>
       </div>
     </div>
