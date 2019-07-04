@@ -6,10 +6,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
-// import 'bootstrap/dist/css/bootstrap.min.css';
-setInterval(function(){
-  console.log("a");
-}, 1000);
+
 $(document).ready(function() {
   $("#userInputForm").submit(function(event){
     let long = parseFloat($("#userLong").val());
@@ -27,18 +24,33 @@ $(document).ready(function() {
     }
     let resolution = 0.8816 - parseFloat($("#resolutionRange").val());
 
-    $.get(`https://api.nasa.gov/planetary/earth/imagery/?lon=${long}&lat=${lat}&cloud_score=${cloud_score}&api_key=${process.env.API_KEY}&dim=${resolution}`).then(function(response){
-      $("#imageRow").html("<img src='" + `${response.url}` +"'</img>");
-      console.log(response.url);
-      console.log(response);
-      console.log(response.toString());
-      console.log("Success");
-    }).fail(function(error){
-      $("#imageRow").html("<h1>There was an error processing your request. Please try a new location or date.</h1>");
-      console.log("Error!");
-      console.log(`${resolution}`);
+    const cycledDays = ["01", "15"];
+    const cyclesMonths = ["01", "02", "03", "04", "05", "06", "07", "08" ,"09", "10", "11", "12"];
+
+
+    function call(day, month){
+      // debugger;
+      let imgUrl;
+      debugger;
+      return $.get(`https://api.nasa.gov/planetary/earth/imagery/?lon=${long}&lat=${lat}&date=2014-` + month + `-` + day +`&cloud_score=${cloud_score}&api_key=${process.env.API_KEY}&dim=${resolution}`);
+    }
+
+    console.log(call("01", "01"));
+
+    $.when(call("01", "01"), call("01", "03"), call("01", "05"), call("01", "12")).done(function(img1,img2,img3, img4){
+      console.log(img1, img2, img3, img4);
+        console.log(img1[2].responseJSON.url);
+        $("#imageRow").append("<img src='" + img1[2].responseJSON.url + "'>");
     });
     // Date nust be given in year-mm-dd
     event.preventDefault();
   });
+
 });
+
+// var requests = [$.get(`https://api.nasa.gov/planetary/earth/imagery/?lon=${long}&lat=${lat}&date=2014-${cyclesMonths[i]}-${cycledDays[j]}&cloud_score=${cloud_score}&api_key=${process.env.API_KEY}&dim=${resolution}`)];
+// for (let i = 0; i < cyclesMonths.length; i ++){
+//   for(let j = 0; j < cycleDays.length; j++){
+//   requests.push($.get(`https://api.nasa.gov/planetary/earth/imagery/?lon=${long}&lat=${lat}&date=2014-${cyclesMonths[i]}-${cycledDays[j]}&cloud_score=${cloud_score}&api_key=${process.env.API_KEY}&dim=${resolution}`));
+//   }
+// }
